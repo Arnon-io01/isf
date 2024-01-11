@@ -1,5 +1,5 @@
 import socket
-import urlparse
+from urllib.parse import urlparse
 import re
 from distutils.util import strtobool
 
