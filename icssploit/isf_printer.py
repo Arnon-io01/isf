@@ -9,7 +9,6 @@ try:
 except ImportError:
     import Queue as queue
 
-
 printer_queue = queue.Queue()
 thread_output_stream = WeakKeyDictionary()
 
