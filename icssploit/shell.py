@@ -358,7 +358,7 @@ class reverse_shell(object):
 
     def convert_port(self, p):
         res = "%.4x" % int(p)
-        return res.decode('hex')
+        return bytes.fromhex(res)
 
     def generate_binary(self, lhost, lport):
         print_status("Generating reverse shell binary")

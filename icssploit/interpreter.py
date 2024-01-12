@@ -318,7 +318,7 @@ ICS Exploits:
         try:
             self.current_module = utils.import_exploit(module_path)()
         except icssploitException as err:
-            utils.print_error(err.message)
+            utils.print_error(err.args[0])
 
     @utils.stop_after(2)
     def complete_use(self, text, *args, **kwargs):

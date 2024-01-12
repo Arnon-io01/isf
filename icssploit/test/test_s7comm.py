@@ -7,8 +7,7 @@ class S7commTests(icssploitTestCase):
         super(S7commTests, self).setUp()
 
     def test_cotp_cr(self):
-        data = '0300001611e00000000100c0010ac102' \
-               '0100c2020200'.decode('hex')
+        data = bytes.fromhex('0300001611e00000000100c0010ac1020100c2020200')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -16,8 +15,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[TPKT].Length, 22)
 
     def test_cotp_cc(self):
-        data = '0300001611d00001000200c0010ac102' \
-               '0100c2020200'.decode('hex')
+        data = bytes.fromhex('0300001611d00001000200c0010ac1020100c2020200')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -25,8 +23,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[TPKT].Length, 22)
 
     def test_setup_comm_req(self):
-        data = '0300001902f080320100000800000800' \
-               '00f0000001000101e0'.decode('hex')
+        data = bytes.fromhex('0300001902f08032010000080000080000f0000001000101e0')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -35,8 +32,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7SetConParameter), True)
 
     def test_setup_comm_rsp(self):
-        data = '0300001b02f08032030000080000080' \
-               '0000000f0000001000100f0'.decode('hex')
+        data = bytes.fromhex('0300001b02f080320300000800000800000000f0000001000100f0')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -45,9 +41,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7SetConParameter), True)
 
     def test_read_szl_req(self):
-        data = '0300002102f08032070000090000080' \
+        data = bytes.fromhex('0300002102f08032070000090000080' \
                '0080001120411440100ff0900040011' \
-               '0000'.decode('hex')
+               '0000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -58,7 +54,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ReadSZLDataReq].SZLId, 0x11)
 
     def test_read_szl_rsp(self):
-        data = '0300009902f080320700000900000c00' \
+        data = bytes.fromhex('0300009902f080320700000900000c00' \
                '7c000112081284010100000000ff0900' \
                '7800110000001c000400013645533720' \
                '3331352d32454831342d304142302000' \
@@ -67,7 +63,7 @@ class S7commTests(icssploitTestCase):
                '01000720202020202020202020202020' \
                '2020202020202000c05603020a008142' \
                '6f6f74204c6f61646572202020202020' \
-               '202020000041250b0c'.decode('hex')
+               '202020000041250b0c')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -78,9 +74,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7ReadSZLDataTreeRsp), True)
 
     def test_start_upload_req(self):
-        data = '0300002302f080320100000d00001200' \
+        data = bytes.fromhex('0300002302f080320100000d00001200' \
                '001d00000000000000095f3038303030' \
-               '303141'.decode('hex')
+               '303141')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -90,9 +86,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7RequestUploadBlockParameterReq].Filename, '_0800001A')
 
     def test_start_upload_rsp(self):
-        data = '0300002302f080320300000d00001000' \
+        data = bytes.fromhex('0300002302f080320300000d00001000' \
                '0000001d000100000000070730303030' \
-               '323132'.decode('hex')
+               '323132')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -103,8 +99,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7RequestUploadBlockParameterRsp].BlockLength, '0000212')
 
     def test_upload_req(self):
-        data = '0300001902f080320100000e00000800' \
-               '001e00000000000007'.decode('hex')
+        data = bytes.fromhex('0300001902f080320100000e00000800' \
+               '001e00000000000007')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -114,7 +110,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7UploadBlockParameterReq].UploadId, 0x7)
 
     def test_upload_rsp(self):
-        data = '030000ed02f080320300000e00000200' \
+        data = bytes.fromhex('030000ed02f080320300000e00000200' \
                'd800001e0000d400fb70700000000000' \
                '00000000000000000000000000000000' \
                '00000000000000000000000000000000' \
@@ -128,7 +124,7 @@ class S7commTests(icssploitTestCase):
                '00000000000000000000000000000000' \
                '00000000000000000000000000000000' \
                '00000000000000000000000000000000' \
-               '0001001db20000000000000000'.decode('hex')
+               '0001001db20000000000000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -139,8 +135,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7UploadBlockDataRsp].DataLength, 0xd4)
 
     def test_upload_end_req(self):
-        data = '0300001902f080320100000f00000800' \
-               '001f00000000000007'.decode('hex')
+        data = bytes.fromhex('0300001902f080320100000f00000800' \
+               '001f00000000000007')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -150,8 +146,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7UploadBlockEndParameterReq].UploadID, 0x07)
 
     def test_upload_end_rsp(self):
-        data = '0300001402f080320300000f00000100' \
-               '0000001f'.decode('hex')
+        data = bytes.fromhex('0300001402f080320300000f00000100' \
+               '0000001f')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -161,10 +157,10 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7UploadBlockEndParameterRsp].Function, 0x1f)
 
     def test_request_download_req(self):
-        data = '0300003102f080320100001000002000' \
+        data = bytes.fromhex('0300003102f080320100001000002000' \
                '001a00000000000000095f3038303030' \
                '3031500d313030303231323030303130' \
-               '32'.decode('hex')
+               '32')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -178,8 +174,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7RequestDownloadParameterReq].MC7Length, '000102')
 
     def test_request_download_rsp(self):
-        data = '0300001402f080320300001000000100' \
-               '0000001a'.decode('hex')
+        data = bytes.fromhex('0300001402f080320300001000000100' \
+               '0000001a')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -189,9 +185,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7RequestDownloadParameterRsp].Function, 0x1a)
 
     def test_download_req(self):
-        data = '0300002302f080320100000d00001200' \
+        data = bytes.fromhex('0300002302f080320100000d00001200' \
                '001b00000000000000095f3038303030' \
-               '303150'.decode('hex')
+               '303150')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -203,7 +199,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7DownloadParameterReq].Filename, '_0800001P')
 
     def test_download_rsp(self):
-        data = '030000ed02f080320300000d00000200' \
+        data = bytes.fromhex('030000ed02f080320300000d00000200' \
                'd800001b0000d400fb095f3038707000' \
                '00000000000000000000000000000000' \
                '00000000000000000000000000000000' \
@@ -217,7 +213,7 @@ class S7commTests(icssploitTestCase):
                '00000000000000000000000000000000' \
                '00000000000000000000000000000000' \
                '00000000000000000000000000000000' \
-               '00000000000000000000000000'.decode('hex')
+               '00000000000000000000000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -229,9 +225,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7DownloadDataRsp].DataLength, 0xd4)
 
     def test_download_end_req(self):
-        data = '0300002302f080320100000f00001200' \
+        data = bytes.fromhex('0300002302f080320100000f00001200' \
                '001c00840400000000095f3038303030' \
-               '303150'.decode('hex')
+               '303150')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -243,8 +239,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7DownloadEndParameterReq].Filename, '_0800001P')
 
     def test_download_end_rsp(self):
-        data = '0300001402f080320300000f00000100' \
-               '0000001c'.decode('hex')
+        data = bytes.fromhex('0300001402f080320300000f00000100' \
+               '0000001c')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -254,9 +250,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7DownloadEndParameterRsp].Function, 0x1c)
 
     def test_request_download_file_req(self):
-        data = '0300002302f08032010000bf05001200' \
+        data = bytes.fromhex('0300002302f08032010000bf05001200' \
                '001a0000000000000009505f42455359' \
-               '5f4247'.decode('hex')
+               '5f4247')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -267,8 +263,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7RequestDownloadParameterReq].Filename, "P_BESY_BG")
 
     def test_request_download_file_rsp(self):
-        data = '0300001402f08032030000bf05000100' \
-               '0000001a'.decode('hex')
+        data = bytes.fromhex('0300001402f08032030000bf05000100' \
+               '0000001a')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -277,9 +273,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7RequestDownloadParameterRsp), True)
 
     def test_pi_service_req(self):
-        data = '0300002b02f080320100001100001a00' \
+        data = bytes.fromhex('0300002b02f080320100001100001a00' \
                '0028000100000000fd000a0100303830' \
-               '3030303150055f494e5345'.decode('hex')
+               '3030303150055f494e5345')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -291,8 +287,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7PIServiceParameterBlock].FileNames, ['\x000800001P'])
 
     def test_pi_service_rsp(self):
-        data = '0300001502f080320300001100000200' \
-               '00d2092802'.decode('hex')
+        data = bytes.fromhex('0300001502f080320300001100000200' \
+               '00d2092802')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -302,9 +298,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7PIServiceParameterRsp].Function, 0x28)
 
     def test_plc_stop_req(self):
-        data = '0300002102f080320100002000001000' \
+        data = bytes.fromhex('0300002102f080320100002000001000' \
                '0029000000000009505f50524f475241' \
-               '4d'.decode('hex')
+               '4d')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -315,8 +311,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7StopCpuParameterReq].PI, 'P_PROGRAM')
 
     def test_plc_stop_rsp_1(self):
-        data = '0300001402f080320300002000000100' \
-               '00000029'.decode('hex')
+        data = bytes.fromhex('0300001402f080320300002000000100' \
+               '00000029')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -327,8 +323,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7StopCpuParameterRsp].ParameterData, None)
 
     def test_plc_stop_rsp_2(self):
-        data = '0300001502f080320300002300000200' \
-               '0084022907'.decode('hex')
+        data = bytes.fromhex('0300001502f080320300002300000200' \
+               '0084022907')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -339,9 +335,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7StopCpuParameterRsp].ParameterData, 0x07)
 
     def test_plc_pass_req(self):
-        data = '0300002502f080320700000d00000800' \
+        data = bytes.fromhex('0300002502f080320700000d00000800' \
                '0c0001120411450100ff090008646702' \
-               '0662731706'.decode('hex')
+               '0662731706')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -355,9 +351,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7PasswordDataReq].Data, '\x64\x67\x02\x06\x62\x73\x17\x06')
 
     def test_plc_pass_rsp(self):
-        data = '0300002102f080320700000d00000c00' \
+        data = bytes.fromhex('0300002102f080320700000d00000c00' \
                '0400011208128501010000d6020a0000' \
-               '00'.decode('hex')
+               '00')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -366,8 +362,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7PasswordParameterRsp), True)
 
     def test_clean_password_req(self):
-        data = '0300001d02f080320700001b00000800' \
-               '0400011204114502000a000000'.decode('hex')
+        data = bytes.fromhex('0300001d02f080320700001b00000800' \
+               '0400011204114502000a000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -380,9 +376,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7CleanSessionDataReq].ReturnCode, 0x0a)
 
     def test_clean_password_rsp(self):
-        data = '0300002102f080320700001b00000c00' \
+        data = bytes.fromhex('0300002102f080320700001b00000c00' \
                '0400011208128502010000d6040a0000' \
-               '00'.decode('hex')
+               '00')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -396,8 +392,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7CleanSessionDataRsp].ReturnCode, 0x0a)
 
     def test_read_var_db_req(self):
-        data = '0300001f02f080320100001c00000e00' \
-               '000401120a10020001000184000000'.decode('hex')
+        data = bytes.fromhex('0300001f02f080320100001c00000e00' \
+               '000401120a10020001000184000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -408,8 +404,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ReadVarItemsReq].Address, 0x00)
 
     def test_read_var_db_rsp(self):
-        data = '0300001902f080320300001c00000200' \
-               '04000004010a000000'.decode('hex')
+        data = bytes.fromhex('0300001902f080320300001c00000200' \
+               '04000004010a000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -419,8 +415,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ReadVarDataItemsRsp].ReturnCode, 0x0a)
 
     def test_read_var_m_req(self):
-        data = '0300001f02f080320100001d00000e00' \
-               '000401120a10020001000083000000'.decode('hex')
+        data = bytes.fromhex('0300001f02f080320100001d00000e00' \
+               '000401120a10020001000083000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -432,8 +428,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ReadVarItemsReq].Address, 0x00)
 
     def test_read_var_m_rsp(self):
-        data = '0300001a02f080320300001d00000200' \
-               '0500000401ff04000800'.decode('hex')
+        data = bytes.fromhex('0300001a02f080320300001d00000200' \
+               '0500000401ff04000800')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -445,9 +441,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ReadVarDataItemsRsp].Data, '\x00')
 
     def test_write_var_m_req(self):
-        data = '0300002402f080320100000e00000e00' \
+        data = bytes.fromhex('0300002402f080320100000e00000e00' \
                '050501120a1002000100008300000000' \
-               '04000800'.decode('hex')
+               '04000800')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -458,8 +454,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7WriteVarDataReq), True)
 
     def test_write_var_m_rsp(self):
-        data = '0300001602f080320300001200000200' \
-               '0100000501ff'.decode('hex')
+        data = bytes.fromhex('0300001602f080320300001200000200' \
+               '0100000501ff')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -468,7 +464,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7WriteVarParameterRsp), True)
 
     def test_write_multi_var_req(self):
-        data = '030000ab02f080320100001d00003e00' \
+        data = bytes.fromhex('030000ab02f080320100001d00003e00' \
                '5c0505120a1002000800008300000012' \
                '0a10020010000284000000120a100200' \
                '10000384000000120a10020010000484' \
@@ -478,7 +474,7 @@ class S7commTests(icssploitTestCase):
                '04008003030303030303030303030303' \
                '03030300040080040404040404040404' \
                '04040404040404000400800505050505' \
-               '0505050505050505050505'.decode('hex')
+               '0505050505050505050505')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -489,8 +485,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(len(packet[S7WriteVarDataReq].Items), 0x05)
 
     def test_write_multi_var_rsp(self):
-        data = '0300001a02f080320300002000000200' \
-               '0500000505ff0a0a0a0a'.decode('hex')
+        data = bytes.fromhex('0300001a02f080320300002000000200' \
+               '0500000505ff0a0a0a0a')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -501,7 +497,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7WriteVarDataRsp].Items[1].ReturnCode, 0x0a)
 
     def test_write_multi_var_with_padding_req(self):
-        data = '030000ab02f080320100001c00003e00' \
+        data = bytes.fromhex('030000ab02f080320100001c00003e00' \
                '5c0505120a1002000700008300000012' \
                '0a10020010000284000000120a100200' \
                '10000384000000120a10020010000484' \
@@ -511,7 +507,7 @@ class S7commTests(icssploitTestCase):
                '04008003030303030303030303030303' \
                '03030300040080040404040404040404' \
                '04040404040404000400800505050505' \
-               '0505050505050505050505'.decode('hex')
+               '0505050505050505050505')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -522,8 +518,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(len(packet[S7WriteVarDataReq].Items), 0x05)
 
     def test_write_multi_var_with_padding_rsp(self):
-        data = '0300001a02f080320300001c00000200' \
-               '0500000505ff0a0a0a0a'.decode('hex')
+        data = bytes.fromhex('0300001a02f080320300001c00000200' \
+               '0500000505ff0a0a0a0a')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -534,8 +530,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7WriteVarDataRsp].Items[1].ReturnCode, 0x0a)
 
     def test_list_block_req(self):
-        data = '0300001d02f080320700001f00000800' \
-               '0400011204114301000a000000'.decode('hex')
+        data = bytes.fromhex('0300001d02f080320700001f00000800' \
+               '0400011204114301000a000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -545,10 +541,10 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7ListBlockDataReq), True)
 
     def test_list_block_rsp(self):
-        data = '0300003d02f080320700000900000c00' \
+        data = bytes.fromhex('0300003d02f080320700000900000c00' \
                '20000112081283010100000000ff0900' \
                '1c303800003045000030430000304100' \
-               '00304200023044005a3046001e'.decode('hex')
+               '00304200023044005a3046001e')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -558,8 +554,8 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7ListBlockDataRsp), True)
 
     def test_list_block_of_type_req(self):
-        data = '0300001f02f080320700000b00000800' \
-               '060001120411430200ff0900023046'.decode('hex')
+        data = bytes.fromhex('0300001f02f080320700000b00000800' \
+               '060001120411430200ff0900023046')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -570,7 +566,7 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ListBlockOfTypeDataReq].BlockType, '0F')
 
     def test_list_block_of_type_rsp(self):
-        data = '0300009902f080320700000b00000c00' \
+        data = bytes.fromhex('0300009902f080320700000b00000c00' \
                '7c000112081283020100000000ff0900' \
                '78000042010001420100024201000342' \
                '01000442010005420100084201000942' \
@@ -579,7 +575,7 @@ class S7commTests(icssploitTestCase):
                '010016420100174201001f4201002042' \
                '01002142010022420100234201002442' \
                '01002542010034420100354201003642' \
-               '010051420100684201'.decode('hex')
+               '010051420100684201')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -594,9 +590,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7ListBlockOfTypeDataRsp].Blocks[0].BlockLang, 0x01)
 
     def test_get_block_info_req(self):
-        data = '0300002502f080320700000c00000800' \
+        data = bytes.fromhex('0300002502f080320700000c00000800' \
                '0c0001120411430300ff090008304630' \
-               '3030303141'.decode('hex')
+               '3030303141')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -615,7 +611,7 @@ class S7commTests(icssploitTestCase):
                '0000620000000001cb69d811fc01cb69' \
                'd811fc001400040000000253494d4154' \
                '4943004945435f544300004354440000' \
-               '000000100000000000000000000000'.decode('hex')
+               '000000100000000000000000000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -626,9 +622,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7GetBlockInfoDataInfoRsp), True)
 
     def test_delete_block_req(self):
-        data = '0300002b02f080320100000900001a00' \
+        data = bytes.fromhex('0300002b02f080320100000900001a00' \
                '0028000000000000fd000a0100303830' \
-               '3030303142055f44454c45'.decode('hex')
+               '3030303142055f44454c45')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -636,9 +632,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7Header), True)
 
     def test_message_service_req(self):
-        data = '0300002702f080320700000500000800' \
+        data = bytes.fromhex('0300002702f080320700000500000800' \
                '0e0001120411440200ff09000a010055' \
-               '53455231000000'.decode('hex')
+               '53455231000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -649,9 +645,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet[S7MessageServiceDataReq].SubscribedEvents, 1)
 
     def test_message_service_rsp(self):
-        data = '0300002302f080320700000500000c00' \
+        data = bytes.fromhex('0300002302f080320700000500000c00' \
                '0600011208128402ff00000000ff0900' \
-               '020200'.decode('hex')
+               '020200')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -661,10 +657,10 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7MessageServiceDataRsp), True)
 
     def test_force_req(self):
-        data = '0300003d02f08032070000b400000c00' \
+        data = bytes.fromhex('0300003d02f08032070000b400000c00' \
                '20000112081241100000000000ff0900' \
                '1c001400040000000000010000000100' \
-               '01000100010001000000000000'.decode('hex')
+               '01000100010001000000000000')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
@@ -674,9 +670,9 @@ class S7commTests(icssploitTestCase):
         self.assertEqual(packet.haslayer(S7ForceDataReq), True)
 
     def test_force_rsp(self):
-        data = '0300002902f080320700006101000c00' \
+        data = bytes.fromhex('0300002902f080320700006101000c00' \
                '0c000112081281101500000000ff0900' \
-               '080004000001000001'.decode('hex')
+               '080004000001000001')
         packet = TPKT(data)
         packet.show()
         self.assertEqual(packet.haslayer(TPKT), True)
