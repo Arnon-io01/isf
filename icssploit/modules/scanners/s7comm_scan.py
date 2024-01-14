@@ -25,7 +25,7 @@ class Exploit(exploits.Exploit):
         ],
     }
 
-    target = exploits.Option('', "string for hosts as nmap use it 'scanme.nmap.org'"
+    target = exploits.Option('172.16.21.199', "string for hosts as nmap use it 'scanme.nmap.org'"
                                  " or '198.116.0-255.1-127' or '216.163.128.20/20'")
     port = exploits.Option(102, 'S7comm port, default is 102/TCP', validators=validators.integer)
     verbose = exploits.Option(0, 'Scapy verbose level, 0 to 2', validators=validators.integer)
